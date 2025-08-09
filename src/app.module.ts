@@ -50,7 +50,7 @@ import { PlaceRandom } from 'src/place_random/entities/place_random.entity';
           BlogLike,
           PlaceRandom,
         ],
-        synchronize: true,
+        synchronize: process.env.NODE_ENV !== 'production',
         ssl: {
           rejectUnauthorized: false,
         },

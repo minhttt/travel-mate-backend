@@ -21,7 +21,7 @@ export class Blog {
   @Column()
   title: string;
 
-  @Column({ nullable: true })
+  @Column({ name: 'tripid', type: 'integer', nullable: true })
   tripid: number | null;
 
   @Column({ default: 0 })
