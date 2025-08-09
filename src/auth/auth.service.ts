@@ -48,11 +48,16 @@ export class AuthService {
     const userInfo = await this.verifyGoogleToken(idToken);
 
     let user = await this.usersService.findUserByEmail(userInfo.email);
+    const baseUsername = userInfo.email.split('@')[0];
+    const randomSuffix = Math.floor(Math.random() * 10000);
+    const username = `${baseUsername}${randomSuffix}`;
+
     if (!user) {
       user = await this.usersService.createUser({
         email: userInfo.email,
         name: userInfo.name,
         avatar: userInfo.avatar,
+        username,
       });
     }
 
