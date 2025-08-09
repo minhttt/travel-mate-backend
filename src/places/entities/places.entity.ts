@@ -8,7 +8,7 @@ export class Place {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ type: 'integer' })
   rating?: number;
 
   @Column()
