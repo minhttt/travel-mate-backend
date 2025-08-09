@@ -21,8 +21,8 @@ export class Blog {
   @Column()
   title: string;
 
-  @Column()
-  tripid: number;
+  @Column({ nullable: true })
+  tripid: number | null;
 
   @Column({ default: 0 })
   Like: number;

@@ -57,7 +57,7 @@ export class BlogsService {
       blogid: savedBlog.blogid,
       title: savedBlog.title,
       idusercreate: savedBlog.idusercreate,
-      tripid: savedBlog.tripid,
+      tripid: savedBlog.tripid ?? 0,
       blogImages: savedBlog.blogImages?.map((blogImage) => ({
         id: blogImage.image_id,
         imageUrl: blogImage.imageurl,
@@ -75,7 +75,7 @@ export class BlogsService {
       blogid: blog.blogid,
       title: blog.title,
       idusercreate: blog.user?.id,
-      tripid: blog.tripid,
+      tripid: blog.tripid ?? 0,
       blogImages: blog.blogImages?.map((img) => ({
         imageUrl: img.imageurl,
       })),
