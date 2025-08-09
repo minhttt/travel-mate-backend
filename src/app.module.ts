@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/users.entity';
 import { PlacesModule } from './places/places.module';
@@ -27,28 +27,35 @@ import { PlaceRandom } from 'src/place_random/entities/place_random.entity';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
 
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'minh9',
-      password: 'minhboss333',
-      database: 'test1111',
-      entities: [
-        User,
-        Blog,
-        BlogImages,
-        Trip,
-        Place,
-        TripDay,
-        TripPlace,
-        TripNote,
-        TripChecklist,
-        Budget,
-        BlogLike,
-        PlaceRandom,
-      ],
-      synchronize: false,
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (ConfigService: ConfigService) => ({
+        type: 'postgres',
+        host: ConfigService.get('DB_HOST'),
+        port: ConfigService.get<number>('DB_PORT'),
+        username: ConfigService.get('DB_USERNAME'),
+        password: ConfigService.get('DB_PASSWORD'),
+        database: ConfigService.get('DB_NAME'),
+        entities: [
+          User,
+          Blog,
+          BlogImages,
+          Trip,
+          Place,
+          TripDay,
+          TripPlace,
+          TripNote,
+          TripChecklist,
+          Budget,
+          BlogLike,
+          PlaceRandom,
+        ],
+        synchronize: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      }),
+      inject: [ConfigService],
     }),
     AuthModule,
     UsersModule,
