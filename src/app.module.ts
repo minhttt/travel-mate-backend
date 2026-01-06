@@ -22,6 +22,7 @@ import { BlogLikeModule } from './blog_like/blog_like.module';
 import { BlogLike } from 'src/blog_like/entities/blog_like.entity';
 import { PlaceRandomModule } from './place_random/place_random.module';
 import { PlaceRandom } from 'src/place_random/entities/place_random.entity';
+import { HealthModule } from 'src/health.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { PlaceRandom } from 'src/place_random/entities/place_random.entity';
       }),
       inject: [ConfigService],
     }),
+    HealthModule,
     AuthModule,
     UsersModule,
     PlacesModule,
