@@ -13,6 +13,8 @@ RUN npm install
 # 5. Copy full source code
 COPY . .
 
+ENV NODE_OPTIONS = "--max-old-space-size=256"
+
 # 6. Build NestJS
 RUN npm run build
 
@@ -21,3 +23,4 @@ EXPOSE 3000
 
 # 8. Run the application
 CMD ["node", "dist/main.js"]
+
