@@ -1,8 +1,14 @@
 version: "3.9"
 
+
 services:
   db:
     image: postgres:15
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
     container_name: postgres
     environment:
       POSTGRES_DB: appdb
@@ -16,6 +22,11 @@ services:
   backend:
     build: .
     container_name: nestjs-backend
+    healthcheck:
+      test: ["CMD","curl","-f","http://localhost:3000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
       - "3000:3000"
     depends_on:
